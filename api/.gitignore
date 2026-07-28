@@ -12,3 +12,4 @@
 config/master.key
 
 /config/master.key
+vendor/bundle
