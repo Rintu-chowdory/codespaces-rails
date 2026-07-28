@@ -1,0 +1,24 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: codespaces_rails_development
+  username: postgres
+  password: postgres
+  host: localhost
+
+test:
+  <<: *default
+  database: codespaces_rails_test
+  username: postgres
+  password: postgres
+  host: localhost
+
+production:
+  <<: *default
+  # Render and Railway both inject a full DATABASE_URL, which Rails
+  # will parse automatically and merge with the settings above.
+  url: <%= ENV["DATABASE_URL"] %>

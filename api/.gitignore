@@ -1,0 +1,14 @@
+/log/*
+/tmp/*
+/storage/*
+!/log/.keep
+!/tmp/.keep
+!/storage/.keep
+.env
+.env.*
+!.env.example
+/public/assets
+.byebug_history
+config/master.key
+
+/config/master.key

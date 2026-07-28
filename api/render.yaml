@@ -1,0 +1,23 @@
+# Render Blueprint — https://render.com/docs/blueprint-spec
+# Import this repo in Render as a Blueprint and it provisions both
+# services below automatically.
+services:
+  - type: web
+    name: codespaces-rails-api
+    runtime: docker
+    dockerContext: ./api
+    dockerfilePath: ./api/Dockerfile
+    plan: free
+    envVars:
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: FRONTEND_ORIGIN
+        value: https://codespaces-rails-topaz.vercel.app
+      - key: DATABASE_URL
+        fromDatabase:
+          name: codespaces-rails-db
+          property: connectionString
+
+databases:
+  - name: codespaces-rails-db
+    plan: free
