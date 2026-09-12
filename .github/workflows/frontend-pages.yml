@@ -2,7 +2,7 @@ name: Deploy frontend to GitHub Pages
 
 on:
   push:
-    branches: ["main"]
+    branches: ["master"]
     paths: ["web/**"]
   workflow_dispatch:
 
@@ -35,14 +35,13 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: web/dist
-      - id: deployment
-        uses: actions/deploy-pages@v4
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ needs.build.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - run: echo "deployed"
+      - id: deployment
+        uses: actions/deploy-pages@v4
