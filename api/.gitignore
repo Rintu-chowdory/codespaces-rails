@@ -10,9 +10,4 @@
 /public/assets
 .byebug_history
 config/master.key
-
-/config/master.key
-vendor/bundle
-vendor/bundle
-vendor/bundle
 vendor/bundle
