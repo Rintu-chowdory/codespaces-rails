@@ -18,10 +18,15 @@ module CodespacesRailsApi
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins [
-          ENV.fetch("FRONTEND_ORIGIN", "http://localhost:5173"),
-          "https://rintu-chowdory.github.io"
-        ]
+        # FRONTEND_ORIGIN can hold one URL or several comma-separated URLs,
+        # so every deploy target (Vercel, Bolt, a preview URL, ...) can be
+        # allowed without editing code each time.
+        configured_origins = ENV.fetch("FRONTEND_ORIGIN", "http://localhost:5173")
+                                 .split(",")
+                                 .map(&:strip)
+
+        origins(configured_origins + ["https://rintu-chowdory.github.io"])
+
         resource "*",
           headers: :any,
           methods: [:get, :post, :put, :patch, :delete, :options, :head]
